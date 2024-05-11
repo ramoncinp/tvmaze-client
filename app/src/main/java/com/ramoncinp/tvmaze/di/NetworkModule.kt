@@ -32,11 +32,13 @@ object NetworkModule {
         MoshiConverterFactory.create(moshi)
 
     @Provides
+    @Singleton
     fun provideRetrofit(converterFactory: MoshiConverterFactory): Retrofit = Retrofit.Builder()
         .baseUrl(TV_MAZE_BASE_URL)
         .addConverterFactory(converterFactory)
         .build()
 
     @Provides
+    @Singleton
     fun provideTVMazeService(retrofit: Retrofit): TvMazeService = retrofit.create(TvMazeService::class.java)
 }

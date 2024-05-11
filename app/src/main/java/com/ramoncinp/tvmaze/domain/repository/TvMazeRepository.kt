@@ -1,4 +1,4 @@
-package com.ramoncinp.tvmaze.data.repository
+package com.ramoncinp.tvmaze.domain.repository
 
 import com.ramoncinp.tvmaze.domain.model.Episodes
 import com.ramoncinp.tvmaze.domain.model.FoundShows

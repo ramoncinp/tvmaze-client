@@ -1,6 +1,6 @@
 package com.ramoncinp.tvmaze.di
 
-import com.ramoncinp.tvmaze.data.repository.TvMazeRepository
+import com.ramoncinp.tvmaze.domain.repository.TvMazeRepository
 import com.ramoncinp.tvmaze.data.repository.TvMazeRepositoryImpl
 import dagger.Binds
 import dagger.Module

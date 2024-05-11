@@ -7,6 +7,7 @@ import com.ramoncinp.tvmaze.data.util.US_COUNTRY_CODE
 import com.ramoncinp.tvmaze.domain.model.Episodes
 import com.ramoncinp.tvmaze.domain.model.FoundShows
 import com.ramoncinp.tvmaze.domain.model.Show
+import com.ramoncinp.tvmaze.domain.repository.TvMazeRepository
 import javax.inject.Inject
 
 class TvMazeRepositoryImpl @Inject constructor(
