@@ -10,6 +10,7 @@ data class Episode(
     val number: Int,
     val type: String,
     val airdate: String,
+    val airtime: String,
     val airstamp: String,
     val runtime: Int,
     val rating: Rating?,
