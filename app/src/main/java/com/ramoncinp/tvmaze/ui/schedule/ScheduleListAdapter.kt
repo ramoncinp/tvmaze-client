@@ -62,11 +62,15 @@ class ScheduleListAdapter : ListAdapter<ScheduleListItem, RecyclerView.ViewHolde
                 episodeName.text = getEpisodeName(episode)
                 showName.text = episode.show.name
                 episode.show.network?.name?.let {
-                    networkTv.text = "on $it"
+                    networkTv.text = getNetworkName(it)
                     networkTv.isVisible = true
                 } ?: { networkTv.isVisible = false }
                 setImageToView(episode)
             }
+        }
+
+        private fun getNetworkName(network: String): String {
+            return "on $network"
         }
 
         private fun getEpisodeName(episode: Episode): String {
