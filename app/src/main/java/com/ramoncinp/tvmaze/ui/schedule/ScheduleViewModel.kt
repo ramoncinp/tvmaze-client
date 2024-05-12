@@ -6,6 +6,7 @@ import com.ramoncinp.tvmaze.domain.model.ScheduleState
 import com.ramoncinp.tvmaze.domain.usecase.GetScheduleUseCase
 import com.ramoncinp.tvmaze.domain.usecase.ScheduleResult
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -22,6 +23,7 @@ class ScheduleViewModel @Inject constructor(
 
     fun getSchedule() {
         viewModelScope.launch {
+            delay(1000)
             when(val scheduleResponse = getScheduleUseCase()) {
                 is ScheduleResult.Error -> {
                     _scheduleState.update {

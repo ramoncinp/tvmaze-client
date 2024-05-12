@@ -8,6 +8,7 @@ import com.ramoncinp.tvmaze.domain.model.Episodes
 import com.ramoncinp.tvmaze.domain.model.FoundShows
 import com.ramoncinp.tvmaze.domain.model.Show
 import com.ramoncinp.tvmaze.domain.repository.TvMazeRepository
+import timber.log.Timber
 import javax.inject.Inject
 
 class TvMazeRepositoryImpl @Inject constructor(
@@ -20,6 +21,7 @@ class TvMazeRepositoryImpl @Inject constructor(
             val episodes = response.body().orEmpty()
             Episodes(episodes = episodes)
         } catch (e: Exception) {
+            Timber.e(e.toString())
             Episodes(error = GenericRequestError, episodes = listOf())
         }
     }

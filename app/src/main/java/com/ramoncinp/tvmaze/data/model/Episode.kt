@@ -12,6 +12,7 @@ data class Episode(
     val airdate: String,
     val airtime: String,
     val airstamp: String,
+    val show: Show,
     val runtime: Int,
     val rating: Rating?,
     val image: Image?,
