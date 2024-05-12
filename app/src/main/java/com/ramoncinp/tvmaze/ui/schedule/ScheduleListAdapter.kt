@@ -2,6 +2,7 @@ package com.ramoncinp.tvmaze.ui.schedule
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -9,6 +10,7 @@ import com.ramoncinp.tvmaze.R
 import com.ramoncinp.tvmaze.data.model.Episode
 import com.ramoncinp.tvmaze.databinding.AirtimeHeaderLayoutBinding
 import com.ramoncinp.tvmaze.databinding.EpisodeItemLayoutBinding
+import com.squareup.picasso.Picasso
 
 class ScheduleListAdapter : ListAdapter<ScheduleListItem, RecyclerView.ViewHolder>(ScheduleListDiffCallback()) {
 
@@ -56,8 +58,31 @@ class ScheduleListAdapter : ListAdapter<ScheduleListItem, RecyclerView.ViewHolde
 
     class EpisodeItemViewHolder(private val binding: EpisodeItemLayoutBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(episode: Episode) {
-            binding.episodeName.text = episode.name
-            binding.showName.text = episode.show.name
+            with(binding) {
+                episodeName.text = getEpisodeName(episode)
+                showName.text = episode.show.name
+                setImageToView(episode)
+            }
+        }
+
+        private fun getEpisodeName(episode: Episode): String {
+            val seasonAndNumber = if (episode.number != null) {
+                "${episode.season}x${episode.number}"
+            } else ""
+            return "${episode.name} $seasonAndNumber"
+        }
+
+        private fun setImageToView(episode: Episode) {
+            val showImage = binding.showImage
+            if (episode.image != null) {
+                Picasso.get().load(episode.image.medium).into(showImage)
+                showImage.isVisible = true
+            } else if (episode.show.image != null) {
+                Picasso.get().load(episode.show.image.medium).into(showImage)
+                showImage.isVisible = true
+            } else {
+                showImage.isVisible = false
+            }
         }
 
         companion object {
@@ -72,24 +97,10 @@ class ScheduleListAdapter : ListAdapter<ScheduleListItem, RecyclerView.ViewHolde
 
 class ScheduleListDiffCallback : DiffUtil.ItemCallback<ScheduleListItem>() {
     override fun areItemsTheSame(oldItem: ScheduleListItem, newItem: ScheduleListItem): Boolean {
-        return when(oldItem) {
-            is ScheduleListItem.AirtimeHeader -> {
-                oldItem.airtime == (newItem as ScheduleListItem.AirtimeHeader).airtime
-            }
-            is ScheduleListItem.EpisodeUiItem -> {
-                oldItem.episode.id == (newItem as ScheduleListItem.EpisodeUiItem).episode.id
-            }
-        }
+        return oldItem.id == newItem.id
     }
 
     override fun areContentsTheSame(oldItem: ScheduleListItem, newItem: ScheduleListItem): Boolean {
-        return when(oldItem) {
-            is ScheduleListItem.AirtimeHeader -> {
-                oldItem.airtime == (newItem as ScheduleListItem.AirtimeHeader).airtime
-            }
-            is ScheduleListItem.EpisodeUiItem -> {
-                oldItem.episode == (newItem as ScheduleListItem.EpisodeUiItem).episode
-            }
-        }
+        return oldItem == newItem
     }
 }

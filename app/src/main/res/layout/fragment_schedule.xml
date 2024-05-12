@@ -7,6 +7,19 @@
     android:background="@color/indigo_primary_dark"
     tools:context=".ui.schedule.ScheduleFragment">
 
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/dates_chip_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/medium_spacing"
+        android:layout_marginEnd="@dimen/medium_spacing"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:selectionRequired="true"
+        app:singleSelection="true" />
+
     <TextView
         android:id="@+id/error_text"
         android:layout_width="wrap_content"
@@ -30,11 +43,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/schedule_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+    <androidx.cardview.widget.CardView
+        android:id="@+id/schedule_container"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        android:visibility="visible"
+        app:cardCornerRadius="@dimen/normal_corner_radius"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dates_chip_group">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/schedule_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="5"
+            tools:listitem="@layout/episode_item_layout" />
+
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

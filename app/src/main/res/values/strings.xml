@@ -5,4 +5,5 @@
     <string name="schedule">Schedule</string>
     <string name="there_is_no_schedule">There is no schedule</string>
     <string name="airtime_formatted">%1$s hrs</string>
+    <string name="show_image">Show image</string>
 </resources>

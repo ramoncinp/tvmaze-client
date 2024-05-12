@@ -8,26 +8,61 @@
 
     <TextView
         android:id="@+id/episode_name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/medium_spacing"
         android:layout_marginTop="@dimen/medium_spacing"
+        android:layout_marginEnd="@dimen/medium_spacing"
         android:textColor="@color/white"
         android:textSize="@dimen/normal_text"
         android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/show_image"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Episode 01x02" />
 
     <TextView
         android:id="@+id/show_name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/medium_spacing"
         android:textColor="@color/white"
+        android:textSize="@dimen/small_text"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/episode_name"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/episode_name"
         app:layout_constraintTop_toBottomOf="@+id/episode_name"
+        app:layout_constraintVertical_bias="0.0"
         tools:text="Friends" />
+
+    <TextView
+        android:id="@+id/network_tv"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/medium_spacing"
+        android:textColor="@color/white"
+        android:textSize="@dimen/small_text"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/episode_name"
+        app:layout_constraintStart_toStartOf="@+id/episode_name"
+        app:layout_constraintTop_toBottomOf="@+id/show_name"
+        tools:text="on ABC" />
+
+    <ImageView
+        android:id="@+id/show_image"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="@dimen/medium_spacing"
+        android:layout_marginEnd="@dimen/medium_spacing"
+        android:layout_marginBottom="@dimen/medium_spacing"
+        android:background="@color/indigo_primary_dark"
+        android:contentDescription="@string/show_image"
+        android:scaleType="centerCrop"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

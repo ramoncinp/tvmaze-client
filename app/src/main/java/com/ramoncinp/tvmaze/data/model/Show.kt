@@ -12,11 +12,11 @@ data class Show(
     val genres: List<String>,
     val status: String,
     val runtime: Int?,
-    val averageRuntime: Int,
+    val averageRuntime: Int?,
     val premiered: String,
     val schedule: Schedule,
     val rating: Rating,
     val network: Network?,
     val image: Image?,
-    val summary: String
+    val summary: String?
 )

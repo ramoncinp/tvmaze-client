@@ -1,19 +1,16 @@
 package com.ramoncinp.tvmaze.domain.usecase
 
 import com.ramoncinp.tvmaze.domain.mappers.toScheduleList
-import com.ramoncinp.tvmaze.domain.providers.DateProvider
 import com.ramoncinp.tvmaze.domain.repository.TvMazeRepository
 import com.ramoncinp.tvmaze.ui.schedule.ScheduleListItem
 import javax.inject.Inject
 
 class GetScheduleUseCase @Inject constructor(
-    private val repository: TvMazeRepository,
-    private val dateProvider: DateProvider
+    private val repository: TvMazeRepository
 ) {
 
-    suspend operator fun invoke(): ScheduleResult {
-        val today = dateProvider.getToday()
-        val scheduleResponse = repository.getSchedule(today)
+    suspend operator fun invoke(date: String): ScheduleResult {
+        val scheduleResponse = repository.getSchedule(date)
 
         return if (scheduleResponse.error != null) {
             ScheduleResult.Error(scheduleResponse.error)
