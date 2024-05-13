@@ -91,6 +91,7 @@ class ScheduleFragment : BaseFragment<FragmentScheduleBinding>() {
             isCheckable = true
             text = chipState.name
             isChecked = chipState.checked
+            setTextColor(resources.getColorStateList(R.color.chip_text_color, null))
             chipBackgroundColor = resources.getColorStateList(R.color.chip_background_color, null)
         }
     }
