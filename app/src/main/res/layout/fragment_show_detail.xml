@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/indigo_primary_dark"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".ui.show.ShowDetailFragment">
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/show_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/medium_spacing"
+            android:layout_marginEnd="@dimen/medium_spacing"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/normal_text"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="After Midnight" />
+
+        <ImageView
+            android:id="@+id/show_image"
+            android:layout_width="0dp"
+            android:layout_height="400dp"
+            android:layout_marginStart="@dimen/medium_spacing"
+            android:layout_marginTop="@dimen/small_spacing"
+            android:layout_marginEnd="@dimen/medium_spacing"
+            android:contentDescription="@string/show_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/show_name" />
+
+        <TextView
+            android:id="@+id/summary_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/medium_spacing"
+            android:layout_marginTop="@dimen/small_spacing"
+            android:layout_marginEnd="@dimen/medium_spacing"
+            android:textColor="@color/white"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rating_tv"
+            tools:text="Inspired by Comedy Central's Emmy Award-winning series midnight, is the smartest show on television about the dumbest things on the internet. With celebrated comedian Taylor Tomlinson at the helm and a panel of guests from the worlds of entertainment, comedy, music and beyond, After Midnight is a late-night comedy series about what set the internet abuzz that day with a game show feel. Upcoming guests will be announced at a later date." />
+
+        <ImageView
+            android:id="@+id/rating_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/rating_icon"
+            android:src="@mipmap/ic_star"
+            app:layout_constraintBottom_toBottomOf="@+id/rating_tv"
+            app:layout_constraintStart_toEndOf="@+id/rating_tv"
+            app:layout_constraintTop_toTopOf="@+id/rating_tv" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/rating_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/medium_spacing"
+            android:layout_marginTop="@dimen/small_spacing"
+            android:textColor="@color/white"
+            android:textSize="@dimen/normal_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/show_image"
+            tools:text="4.3" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/rating_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:constraint_referenced_ids="rating_tv, rating_icon" />
+
+        <TextView
+            android:id="@+id/network_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/small_spacing"
+            android:layout_marginEnd="@dimen/medium_spacing"
+            android:textColor="@color/white"
+            android:textSize="@dimen/normal_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/show_image"
+            tools:text="NBC" />
+
+        <ImageView
+            android:id="@+id/network_icon"
+            android:contentDescription="@string/network_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_tv"
+            app:layout_constraintBottom_toBottomOf="@+id/network_tv"
+            app:layout_constraintEnd_toStartOf="@+id/network_tv"
+            app:layout_constraintTop_toTopOf="@+id/network_tv" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/network_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:constraint_referenced_ids="network_tv, network_icon" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

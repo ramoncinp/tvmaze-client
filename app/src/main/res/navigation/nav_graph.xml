@@ -9,6 +9,20 @@
         android:id="@+id/scheduleFragment"
         android:name="com.ramoncinp.tvmaze.ui.schedule.ScheduleFragment"
         android:label="@string/schedule"
-        tools:layout="@layout/fragment_schedule" />
+        tools:layout="@layout/fragment_schedule" >
+        <action
+            android:id="@+id/scheduleToShowDetail"
+            app:destination="@id/showDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/showDetailFragment"
+        android:name="com.ramoncinp.tvmaze.ui.show.ShowDetailFragment"
+        android:label="@string/show_detail"
+        tools:layout="@layout/fragment_show_detail" >
+        <argument
+            android:name="showId"
+            app:argType="integer" />
+    </fragment>
 
 </navigation>

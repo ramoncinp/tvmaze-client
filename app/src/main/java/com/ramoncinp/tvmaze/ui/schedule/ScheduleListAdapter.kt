@@ -12,7 +12,9 @@ import com.ramoncinp.tvmaze.databinding.AirtimeHeaderLayoutBinding
 import com.ramoncinp.tvmaze.databinding.EpisodeItemLayoutBinding
 import com.squareup.picasso.Picasso
 
-class ScheduleListAdapter : ListAdapter<ScheduleListItem, RecyclerView.ViewHolder>(ScheduleListDiffCallback()) {
+class ScheduleListAdapter(
+    private val onEpisodeClicked: (Episode) -> Unit
+) : ListAdapter<ScheduleListItem, RecyclerView.ViewHolder>(ScheduleListDiffCallback()) {
 
     companion object {
         private const val AIRTIME_HEADER_TYPE = 0
@@ -31,7 +33,10 @@ class ScheduleListAdapter : ListAdapter<ScheduleListItem, RecyclerView.ViewHolde
         val item = getItem(position)
         when (holder) {
             is AirtimeHeaderViewHolder -> holder.bind((item as ScheduleListItem.AirtimeHeader).airtime)
-            is EpisodeItemViewHolder -> holder.bind((item as ScheduleListItem.EpisodeUiItem).episode)
+            is EpisodeItemViewHolder -> holder.bind(
+                (item as ScheduleListItem.EpisodeUiItem).episode,
+                onEpisodeClicked
+            )
         }
     }
 
@@ -57,7 +62,7 @@ class ScheduleListAdapter : ListAdapter<ScheduleListItem, RecyclerView.ViewHolde
     }
 
     class EpisodeItemViewHolder(private val binding: EpisodeItemLayoutBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(episode: Episode) {
+        fun bind(episode: Episode, onEpisodeClicked: (Episode) -> Unit) {
             with(binding) {
                 episodeName.text = getEpisodeName(episode)
                 showName.text = episode.show.name
@@ -66,6 +71,9 @@ class ScheduleListAdapter : ListAdapter<ScheduleListItem, RecyclerView.ViewHolde
                     networkTv.isVisible = true
                 } ?: { networkTv.isVisible = false }
                 setImageToView(episode)
+                root.setOnClickListener {
+                    onEpisodeClicked(episode)
+                }
             }
         }
 

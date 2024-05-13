@@ -4,6 +4,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("com.google.dagger.hilt.android")
     id("com.google.devtools.ksp")
+    id("androidx.navigation.safeargs")
 }
 
 android {
@@ -51,6 +52,7 @@ dependencies {
     implementation("androidx.fragment:fragment-ktx:1.7.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.5.0")
 
     // Hilt
     implementation("com.google.dagger:hilt-android:2.48")

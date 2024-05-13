@@ -25,8 +25,4 @@ class DateProviderImpl @Inject constructor() : DateProvider {
             afterTomorrow
         )
     }
-
-    private fun LocalDate.toDate(): Date {
-        return Date(toEpochDay() * 24 * 60 * 60 * 1000)
-    }
 }

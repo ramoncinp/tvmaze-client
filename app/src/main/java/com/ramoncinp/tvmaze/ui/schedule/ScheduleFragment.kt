@@ -6,24 +6,29 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.get
 import androidx.core.view.isVisible
+import androidx.core.view.size
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.chip.Chip
 import com.ramoncinp.tvmaze.R
 import com.ramoncinp.tvmaze.databinding.FragmentScheduleBinding
+import com.ramoncinp.tvmaze.domain.model.ChipState
 import com.ramoncinp.tvmaze.domain.model.ScheduleState
 import com.ramoncinp.tvmaze.ui.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @AndroidEntryPoint
 class ScheduleFragment : BaseFragment<FragmentScheduleBinding>() {
 
-    private val adapter: ScheduleListAdapter by lazy { ScheduleListAdapter() }
+    private val adapter: ScheduleListAdapter by lazy { ScheduleListAdapter { navigateToShowDetail(it.show.id) } }
     private val viewModel: ScheduleViewModel by viewModels()
+    private var shouldScrollToTop = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,12 +47,20 @@ class ScheduleFragment : BaseFragment<FragmentScheduleBinding>() {
     private fun initViews() {
         initChipGroup()
         binding.scheduleList.adapter = adapter
+        binding.scheduleList.addItemDecoration(
+            DividerItemDecoration(
+                context,
+                LinearLayoutManager.VERTICAL
+            )
+        )
     }
 
     private fun initChipGroup() {
         binding.datesChipGroup.setOnCheckedStateChangeListener { group, checkedIds ->
-            val chip = group[checkedIds.first() - 1] as Chip
+            val idx = (checkedIds.first() - 1) % group.size
+            val chip = group[idx] as Chip
             viewModel.selectDate(chip.text.toString())
+            shouldScrollToTop = true
         }
     }
 
@@ -63,21 +76,21 @@ class ScheduleFragment : BaseFragment<FragmentScheduleBinding>() {
         }
     }
 
-    private fun setChipsOptions(dates: List<String>) {
+    private fun setChipsOptions(dates: List<ChipState>) {
         binding.datesChipGroup.isVisible = true
         binding.datesChipGroup.removeAllViews()
-        dates.forEachIndexed { index, date ->
+        dates.forEach { date ->
             binding.datesChipGroup.addView(
-                createChip(date, index == 0)
+                createChip(date)
             )
         }
     }
 
-    private fun createChip(date: String, isFirst: Boolean): View {
+    private fun createChip(chipState: ChipState): View {
         return Chip(requireContext()).apply {
             isCheckable = true
-            text = date
-            isChecked = isFirst
+            text = chipState.name
+            isChecked = chipState.checked
             chipBackgroundColor = resources.getColorStateList(R.color.chip_background_color, null)
         }
     }
@@ -93,10 +106,23 @@ class ScheduleFragment : BaseFragment<FragmentScheduleBinding>() {
                 errorText.text = state.error
             } else if (state.data.isNotEmpty()) {
                 adapter.submitList(state.data)
-                scheduleList.post { scheduleList.scrollToPosition(0) }
+                processScrollToTop()
             } else {
                 errorText.text = getString(R.string.there_is_no_schedule)
             }
         }
+    }
+
+    private fun processScrollToTop() {
+        if (shouldScrollToTop) {
+            binding.scheduleList.post { binding.scheduleList.smoothScrollToPosition(0) }
+            shouldScrollToTop = false
+        }
+    }
+
+    private fun navigateToShowDetail(id: Int) {
+        findNavController().navigate(
+            ScheduleFragmentDirections.scheduleToShowDetail(id)
+        )
     }
 }
